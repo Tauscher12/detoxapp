@@ -3,6 +3,8 @@ import '../widgets/weekly_calendar.dart';
 import '../widgets/screentime_chart.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

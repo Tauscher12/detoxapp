@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ScreentimeChart extends StatelessWidget {
+  const ScreentimeChart({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(

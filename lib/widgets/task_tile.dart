@@ -6,11 +6,11 @@ class TaskTile extends StatelessWidget {
   final ValueChanged<bool?> onChanged; // Besserer Typ für onChanged
 
   const TaskTile({
-    Key? key,
+    super.key,
     required this.title,
     required this.isDone,
     required this.onChanged,
-  }) : super(key: key); // const Konstruktor
+  }); // const Konstruktor
 
   @override
   Widget build(BuildContext context) {
