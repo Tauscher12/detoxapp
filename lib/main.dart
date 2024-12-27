@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'providers/task_provider.dart'; // Importiere den TaskProvider
 import 'pages/home_page.dart';
 import 'pages/challenges_page.dart';
 import 'pages/profile_page.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -11,9 +12,14 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => TaskProvider()), // TaskProvider registrieren
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: HomeScreen(),
+      ),
     );
   }
 }
@@ -28,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _pages = [
     HomePage(),
-    ChallengesPage(),
+    ChallengesPage(), // ChallengesPage zeigt dynamische Aufgaben
     ProfilePage(),
   ];
 
