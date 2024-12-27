@@ -4,8 +4,21 @@ import '../providers/task_provider.dart';
 import '../widgets/task_tile.dart';
 import '../models/task.dart';
 
+class ChallengesPage extends StatefulWidget {
+  @override
+  _ChallengesPageState createState() => _ChallengesPageState();
+}
 
-class ChallengesPage extends StatelessWidget {
+class _ChallengesPageState extends State<ChallengesPage> {
+  @override
+  void initState() {
+    super.initState();
+    // Load data once when the widget is first created
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<TaskProvider>(context, listen: false).loadData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final taskProvider = Provider.of<TaskProvider>(context);
