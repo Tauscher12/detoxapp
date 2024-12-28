@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class WeeklyCalendar extends StatelessWidget {
+  const WeeklyCalendar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Row(

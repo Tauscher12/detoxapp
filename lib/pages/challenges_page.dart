@@ -5,6 +5,8 @@ import '../widgets/task_tile.dart';
 import '../models/task.dart';
 
 class ChallengesPage extends StatefulWidget {
+  const ChallengesPage({super.key});
+
   @override
   _ChallengesPageState createState() => _ChallengesPageState();
 }
