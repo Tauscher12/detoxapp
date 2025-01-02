@@ -1,9 +1,10 @@
+import 'package:detoxapp/pages/AppUsageScreen.dart';
+import 'package:detoxapp/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/task_provider.dart'; // Importiere den TaskProvider
 import 'pages/home_page.dart';
 import 'pages/challenges_page.dart';
-import 'pages/profile_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -39,7 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = [
     HomePage(),
     ChallengesPage(), // ChallengesPage zeigt dynamische Aufgaben
-    ProfilePage(),
+    PermissionScreen(),
+    UsageStatsScreen (),
   ];
 
   void _onItemTapped(int index) {
@@ -63,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Challenges'),
           BottomNavigationBarItem(icon: Icon(Icons.timeline), label: 'Screen-Time'),
+          BottomNavigationBarItem(icon: Icon(Icons.timeline), label: 'Permissions'),
         ],
       ),
     );
