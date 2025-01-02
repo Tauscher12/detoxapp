@@ -7,7 +7,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "run-server": "json-server --watch database.json --port 3001"
+    "run-server": "json-server --host 10.0.2.2 --watch database.json --port 3001"
   },
   "dependencies": {
     "json-server": "^1.0.0-beta.3"
