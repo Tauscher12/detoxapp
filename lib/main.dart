@@ -58,15 +58,22 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
       ),
       body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Challenges'),
-          BottomNavigationBarItem(icon: Icon(Icons.timeline), label: 'Screen-Time'),
-          BottomNavigationBarItem(icon: Icon(Icons.timeline), label: 'Permissions'),
-        ],
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors.blue,
+          primaryColor: Colors.white,
+
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Challenges'),
+            BottomNavigationBarItem(icon: Icon(Icons.timeline), label: 'Screen-Time'),
+            BottomNavigationBarItem(icon: Icon(Icons.timeline), label: 'Permissions'),
+          ],
+        ),
       ),
     );
   }

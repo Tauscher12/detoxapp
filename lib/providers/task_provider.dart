@@ -7,7 +7,7 @@ import 'dart:convert';
 class TaskProvider with ChangeNotifier {
 
 Future<void> loadData() async {
-  final uri = Uri.parse("http://localhost:3001/tasks");
+  final uri = Uri.parse("http://10.0.2.2:3001/tasks");
   final response = await http.get(uri);
 
   if (response.statusCode == 200) {
