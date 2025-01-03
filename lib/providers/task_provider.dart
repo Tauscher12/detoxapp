@@ -25,7 +25,7 @@ Future<void> loadData() async {
   }
 
    Future<void> addTask(Task task) async {
-    final uri = Uri.parse("http://localhost:3001/tasks");
+    final uri = Uri.parse("http://10.0.2.2:3001/tasks");
     try {
       final response = await http.post(
         uri,
@@ -40,7 +40,6 @@ Future<void> loadData() async {
         throw Exception('Failed to add task');
       }
     } catch (e) {
-      print('Error adding task: $e');
       rethrow;
     }
   }
