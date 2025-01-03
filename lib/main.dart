@@ -1,5 +1,6 @@
 import 'package:detoxapp/pages/AppUsageScreen.dart';
 import 'package:detoxapp/pages/profile_page.dart';
+import 'package:detoxapp/providers/app_usage_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/task_provider.dart'; // Importiere den TaskProvider
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => TaskProvider()), // TaskProvider registrieren
+        ChangeNotifierProvider(create: (_) => TaskProvider()),
+        ChangeNotifierProvider(create:(_)=>AppUsageProvider()), // TaskProvider registrieren
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -36,7 +38,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-
+  AppUsageProvider appUsageProvider = AppUsageProvider();
   final List<Widget> _pages = [
     HomePage(),
     ChallengesPage(), // ChallengesPage zeigt dynamische Aufgaben
