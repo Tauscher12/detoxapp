@@ -16,8 +16,12 @@ class UsageStatsScreen extends StatefulWidget {
 class _UsageStatsScreenState extends State<UsageStatsScreen> {
    IconProvider iconProvider = IconProvider(); 
   Future<List<AppUsage>> fetchUsageStatsFromAPI() async {
-    final response = await http.get(Uri.parse('http://10.0.2.2:3001/usagestats'));
-
+    DateTime now = DateTime.now();
+  
+    final Uri url = Uri.parse('http://10.0.2.2:3001/usagestats').replace(queryParameters: {
+    'date':  DateTime(now.year, now.month, now.day).millisecondsSinceEpoch.toString(),
+    });
+      final response = await http.get(url);
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       return jsonResponse.map((data) => AppUsage.fromMap(data)).toList();

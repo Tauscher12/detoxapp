@@ -21,46 +21,56 @@ class AppUsageProvider with ChangeNotifier {
   Future<List<AppUsage>> fetchUsageStats() async {
     try {
       final String result = await platform.invokeMethod('getUsageStats');
-      final lines = result.split('------');
-      final appUsageList = lines
-          .where((line) => line.trim().isNotEmpty)
-          .map((line) {
-            final details = line.split(';');
-            final packageName = details[0].replaceFirst('App: ', '').trim();
-            final duration = details[1].replaceFirst('Nutzungsdauer: ', '').trim();
-            final appName = details[0].replaceFirst('App Name: ', '').trim().split(".").last;
-            final date = details[2].replaceFirst('Date: ', '').trim();
-            return AppUsage(
-              packageName: packageName,
-              duration: duration,
-              appName: appName,
-              date: DateTime.fromMillisecondsSinceEpoch(int.parse(date)),
-            );
-          }).toList();
+      if (result.contains(
+          "Berechtigung nicht erteilt. Bitte aktivieren Sie die Berechtigung in den Einstellungen.")) {
+        return [
+          AppUsage(
+            packageName: 'Fehler',
+            duration: "0",
+            appName: 'Fehler',
+            date: DateTime.now(),
+          ),
+        ];
+      } else {
+        final lines = result.split('------');
+        final appUsageList =
+            lines.where((line) => line.trim().isNotEmpty).map((line) {
+          final details = line.split(';');
+          final packageName = details[0].replaceFirst('App: ', '').trim();
+          final duration =
+              details[1].replaceFirst('Nutzungsdauer: ', '').trim();
+          final appName =
+              details[0].replaceFirst('App Name: ', '').trim().split(".").last;
+          final date = details[2].replaceFirst('Date: ', '').trim();
+          return AppUsage(
+            packageName: packageName,
+            duration: duration,
+            appName: appName,
+            date: DateTime.fromMillisecondsSinceEpoch(int.parse(date)),
+          );
+        }).toList();
 
-      // Update local data
-      for (var newUsage in appUsageList) {
-        final existingUsageIndex = _appUsageList.indexWhere((usage) =>
-            usage.packageName == newUsage.packageName &&
-            usage.date.day == newUsage.date.day &&
-            usage.date.month == newUsage.date.month &&
-            usage.date.year == newUsage.date.year);
+        // Update local data
+        for (var newUsage in appUsageList) {
+          final existingUsageIndex = _appUsageList.indexWhere((usage) =>
+              usage.packageName == newUsage.packageName &&
+              usage.date.day == newUsage.date.day &&
+              usage.date.month == newUsage.date.month &&
+              usage.date.year == newUsage.date.year);
 
-        if (existingUsageIndex != -1) {
-          _appUsageList[existingUsageIndex] = newUsage;
-          await saveUsageStatsToServer(appUsageList);
-          await updateUsageStatsToServer(appUsageList);
-
-        } else {
-          _appUsageList.add(newUsage);
+          if (existingUsageIndex != -1) {
+            _appUsageList[existingUsageIndex] = newUsage;
+            await saveUsageStatsToServer(appUsageList);
+            await updateUsageStatsToServer(appUsageList);
+          } else {
+            _appUsageList.add(newUsage);
+          }
         }
+
+        notifyListeners();
+        return _appUsageList;
       }
-
-
-
-      notifyListeners();
-      return _appUsageList;
-    } on PlatformException  {
+    } on PlatformException {
       return [
         AppUsage(
           packageName: 'Fehler',
@@ -77,20 +87,22 @@ class AppUsageProvider with ChangeNotifier {
     final headers = {'Content-Type': 'application/json'};
 
     for (var appUsage in appUsageList) {
-      final cacheKey = '${appUsage.packageName}-${appUsage.date.toIso8601String()}';
+      final cacheKey =
+          '${appUsage.packageName}-${appUsage.date.toIso8601String()}';
       if (_usageCache.containsKey(cacheKey)) {
         continue;
       }
 
-      final response = await http.get(Uri.parse('$url?packageName=${appUsage.packageName}&date=${appUsage.date.millisecondsSinceEpoch}'));
+      final response = await http.get(Uri.parse(
+          '$url?packageName=${appUsage.packageName}&date=${appUsage.date.millisecondsSinceEpoch}'));
 
       if (response.statusCode != 200 || response.body == "[]") {
         final body = jsonEncode(appUsage.toJson());
         final postResponse = await http.post(url, headers: headers, body: body);
         if (postResponse.statusCode == 201) {
           _usageCache[cacheKey] = appUsage; // Update cache
-        } 
-      } 
+        }
+      }
     }
   }
 
@@ -106,24 +118,23 @@ class AppUsageProvider with ChangeNotifier {
     _timer?.cancel();
     super.dispose();
   }
-  
-  updateUsageStatsToServer(List<AppUsage> appUsageList) async {
 
+  updateUsageStatsToServer(List<AppUsage> appUsageList) async {
     final url = Uri.parse('http://10.0.2.2:3001/usagestats');
     final headers = {'Content-Type': 'application/json'};
-    for (var appUsage in appUsageList){
+    for (var appUsage in appUsageList) {
       //get the data from the server
-      final response = await http.get(Uri.parse('$url?packageName=${appUsage.packageName}&date=${appUsage.date.millisecondsSinceEpoch}'));
+      final response = await http.get(Uri.parse(
+          '$url?packageName=${appUsage.packageName}&date=${appUsage.date.millisecondsSinceEpoch}'));
 
-      if(response.statusCode==200){
+      if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final id = data[0]["id"];
         final body = jsonEncode(appUsage.toJson());
-        final putResponse = await http.put(Uri.parse("$url/$id"), headers: headers, body: body);
-        if(putResponse.statusCode == 200){
+        final putResponse =
+            await http.put(Uri.parse("$url/$id"), headers: headers, body: body);
+        if (putResponse.statusCode == 200) {}
       }
     }
-  }
-
   }
 }
