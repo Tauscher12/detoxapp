@@ -125,6 +125,34 @@
       "appName": "intelligence",
       "date": "1736640000000",
       "id": "696a"
+    },
+    {
+      "packageName": "com.google.android.apps.nexuslauncher",
+      "duration": "3728s",
+      "appName": "nexuslauncher",
+      "date": "1736726400000",
+      "id": "80c5"
+    },
+    {
+      "packageName": "com.android.settings",
+      "duration": "1s",
+      "appName": "settings",
+      "date": "1736726400000",
+      "id": "f3d6"
+    },
+    {
+      "packageName": "com.google.android.youtube",
+      "duration": "20s",
+      "appName": "youtube",
+      "date": "1736726400000",
+      "id": "e73d"
+    },
+    {
+      "packageName": "com.example.detoxapp",
+      "duration": "2242s",
+      "appName": "detoxapp",
+      "date": "1736726400000",
+      "id": "32ba"
     }
   ],
   "challengeStatus": [
