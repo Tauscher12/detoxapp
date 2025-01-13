@@ -1,15 +1,15 @@
 import 'dart:async';
+import 'package:detoxapp/providers/app_usage_api_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import '../models/app_usage.dart';
 
 class AppUsageProvider with ChangeNotifier {
   static const platform = MethodChannel('com.example.usage_stats');
-
   List<AppUsage> _appUsageList = [];
-  final Map<String, AppUsage> _usageCache = {}; // Cache to store fetched data
+  AppUsageApiProvider appUsageApiprovider = AppUsageApiProvider();
+
+  // Cache to store fetched data
   Timer? _timer;
 
   AppUsageProvider() {
@@ -60,8 +60,8 @@ class AppUsageProvider with ChangeNotifier {
 
           if (existingUsageIndex != -1) {
             _appUsageList[existingUsageIndex] = newUsage;
-            await saveUsageStatsToServer(appUsageList);
-            await updateUsageStatsToServer(appUsageList);
+            await appUsageApiprovider.saveUsageStatsToServer(appUsageList);
+            await appUsageApiprovider.updateUsageStatsToServer(appUsageList);
           } else {
             _appUsageList.add(newUsage);
           }
@@ -82,29 +82,7 @@ class AppUsageProvider with ChangeNotifier {
     }
   }
 
-  Future<void> saveUsageStatsToServer(List<AppUsage> appUsageList) async {
-    final url = Uri.parse('http://10.0.2.2:3001/usagestats');
-    final headers = {'Content-Type': 'application/json'};
-
-    for (var appUsage in appUsageList) {
-      final cacheKey =
-          '${appUsage.packageName}-${appUsage.date.toIso8601String()}';
-      if (_usageCache.containsKey(cacheKey)) {
-        continue;
-      }
-
-      final response = await http.get(Uri.parse(
-          '$url?packageName=${appUsage.packageName}&date=${appUsage.date.millisecondsSinceEpoch}'));
-
-      if (response.statusCode != 200 || response.body == "[]") {
-        final body = jsonEncode(appUsage.toJson());
-        final postResponse = await http.post(url, headers: headers, body: body);
-        if (postResponse.statusCode == 201) {
-          _usageCache[cacheKey] = appUsage; // Update cache
-        }
-      }
-    }
-  }
+ 
 
   void _startUsageStatsTimer() {
     _timer = Timer.periodic(Duration(seconds: 15), (timer) async {
@@ -119,22 +97,5 @@ class AppUsageProvider with ChangeNotifier {
     super.dispose();
   }
 
-  updateUsageStatsToServer(List<AppUsage> appUsageList) async {
-    final url = Uri.parse('http://10.0.2.2:3001/usagestats');
-    final headers = {'Content-Type': 'application/json'};
-    for (var appUsage in appUsageList) {
-      //get the data from the server
-      final response = await http.get(Uri.parse(
-          '$url?packageName=${appUsage.packageName}&date=${appUsage.date.millisecondsSinceEpoch}'));
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final id = data[0]["id"];
-        final body = jsonEncode(appUsage.toJson());
-        final putResponse =
-            await http.put(Uri.parse("$url/$id"), headers: headers, body: body);
-        if (putResponse.statusCode == 200) {}
-      }
-    }
-  }
+ 
 }
