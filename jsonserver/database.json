@@ -27,6 +27,27 @@
       "appName": "settings",
       "date": "1735862400000",
       "id": "4a01"
+    },
+    {
+      "packageName": "com.example.detoxapp",
+      "duration": "8s",
+      "appName": "detoxapp",
+      "date": "1736553600000",
+      "id": "fc3d"
+    },
+    {
+      "packageName": "com.google.android.apps.nexuslauncher",
+      "duration": "83s",
+      "appName": "nexuslauncher",
+      "date": "1736553600000",
+      "id": "1fa8"
+    },
+    {
+      "packageName": "com.android.settings",
+      "duration": "17s",
+      "appName": "settings",
+      "date": "1736553600000",
+      "id": "b9dd"
     }
   ],
   "tasks": [
