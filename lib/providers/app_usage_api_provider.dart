@@ -14,11 +14,26 @@ class AppUsageApiProvider{
       final response = await http.get(url);
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((data) => AppUsage.fromMap(data)).toList();
+      List<AppUsage> appUsageList = jsonResponse.map((data) {
+        return AppUsage.fromMap(data);
+      }).toList();
+      return appUsageList;
+    
     } else {
       throw Exception('Failed to load usage stats');
     }
   }
+
+  Future<double> fetchTotalTimeFromAPI() async {
+    return fetchUsageStatsFromAPI().then((value) {
+      double totalTime = 0;
+      for (var appUsage in value) {
+        totalTime += appUsage.duration;
+      }
+      return totalTime;
+    });
+  }
+
   updateUsageStatsToServer(List<AppUsage> appUsageList) async {
     final url = Uri.parse('http://10.0.2.2:3001/usagestats');
     final headers = {'Content-Type': 'application/json'};

@@ -1,6 +1,6 @@
 class AppUsage {
   final String packageName;
-  final String duration;
+  final double duration;
   final String appName;
   final DateTime date ;
 
@@ -9,7 +9,7 @@ class AppUsage {
   factory AppUsage.fromMap(Map<String, dynamic> map) {
     return AppUsage(
       packageName: map['packageName'],
-      duration: map['duration'],
+      duration: double.parse(map['duration'].toString() ),
       appName: map['appName'],
       date: DateTime.fromMicrosecondsSinceEpoch(int.parse(map['date'])),
     );

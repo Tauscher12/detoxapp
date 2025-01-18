@@ -9,17 +9,17 @@ class UsageStatsChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var data = [
-      usageStats.map((usage) => double.parse(usage.duration.replaceAll("s", ""))).toList(),
-    ];
+  
+    var dataInMinutes = usageStats.map((usage) => usage.duration / 60).toList();
 
     var chartData = ChartData(
-      dataRows: data,
-      chartOptions:  ChartOptions(),
-      dataRowsLegends: ['Usage Duration'], // Nur ein Element, da es nur eine Datenreihe gibt
+      dataRows: [dataInMinutes],
+      chartOptions: ChartOptions(
+      ),
+
+      dataRowsLegends: ['Usage Duration (minutes)'],
       xUserLabels: usageStats.map((usage) => usage.appName).toList(),
     );
-
 
     return Container(
       width: MediaQuery.of(context).size.width, // Sicherstellen, dass das Diagramm eine gültige Breite hat
@@ -28,6 +28,7 @@ class UsageStatsChart extends StatelessWidget {
         painter: VerticalBarChartPainter(
           verticalBarChartContainer: VerticalBarChartTopContainer(
             chartData: chartData,
+   
           ),
         ),
       ),

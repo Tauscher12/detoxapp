@@ -2,157 +2,31 @@
   "usagestats": [
     {
       "packageName": "com.google.android.youtube",
-      "duration": "910s",
+      "duration": 35,
       "appName": "youtube",
-      "date": "1735862400000",
-      "id": "45db"
+      "date": "1737158400000",
+      "id": "9212"
     },
     {
       "packageName": "com.example.detoxapp",
-      "duration": "11392s",
+      "duration": 2035,
       "appName": "detoxapp",
-      "date": "1735862400000",
-      "id": "8afe"
+      "date": "1737158400000",
+      "id": "dff9"
     },
     {
       "packageName": "com.google.android.apps.nexuslauncher",
-      "duration": "8394s",
+      "duration": 501,
       "appName": "nexuslauncher",
-      "date": "1735862400000",
-      "id": "6872"
+      "date": "1737158400000",
+      "id": "f1ad"
     },
     {
       "packageName": "com.android.settings",
-      "duration": "3s",
+      "duration": 2,
       "appName": "settings",
-      "date": "1735862400000",
-      "id": "4a01"
-    },
-    {
-      "packageName": "com.example.detoxapp",
-      "duration": "83914s",
-      "appName": "detoxapp",
-      "date": "1736553600000",
-      "id": "4a9e"
-    },
-    {
-      "packageName": "com.google.android.apps.nexuslauncher",
-      "duration": "478s",
-      "appName": "nexuslauncher",
-      "date": "1736553600000",
-      "id": "6489"
-    },
-    {
-      "packageName": "com.android.settings",
-      "duration": "157s",
-      "appName": "settings",
-      "date": "1736553600000",
-      "id": "7544"
-    },
-    {
-      "packageName": "com.google.android.youtube",
-      "duration": "128s",
-      "appName": "youtube",
-      "date": "1736553600000",
-      "id": "4168"
-    },
-    {
-      "packageName": "com.google.android.permissioncontroller",
-      "duration": "26s",
-      "appName": "permissioncontroller",
-      "date": "1736553600000",
-      "id": "b03e"
-    },
-    {
-      "packageName": "com.google.android.googlequicksearchbox",
-      "duration": "7s",
-      "appName": "googlequicksearchbox",
-      "date": "1736553600000",
-      "id": "e5ca"
-    },
-    {
-      "packageName": "com.google.android.settings.intelligence",
-      "duration": "11s",
-      "appName": "intelligence",
-      "date": "1736553600000",
-      "id": "f7d9"
-    },
-    {
-      "packageName": "com.example.detoxapp",
-      "duration": "87128s",
-      "appName": "detoxapp",
-      "date": "1736640000000",
-      "id": "3fe6"
-    },
-    {
-      "packageName": "com.google.android.apps.nexuslauncher",
-      "duration": "982s",
-      "appName": "nexuslauncher",
-      "date": "1736640000000",
-      "id": "6be2"
-    },
-    {
-      "packageName": "com.android.settings",
-      "duration": "163s",
-      "appName": "settings",
-      "date": "1736640000000",
-      "id": "2f4b"
-    },
-    {
-      "packageName": "com.google.android.youtube",
-      "duration": "128s",
-      "appName": "youtube",
-      "date": "1736640000000",
-      "id": "7ced"
-    },
-    {
-      "packageName": "com.google.android.googlequicksearchbox",
-      "duration": "7s",
-      "appName": "googlequicksearchbox",
-      "date": "1736640000000",
-      "id": "8831"
-    },
-    {
-      "packageName": "com.google.android.permissioncontroller",
-      "duration": "26s",
-      "appName": "permissioncontroller",
-      "date": "1736640000000",
-      "id": "5fb1"
-    },
-    {
-      "packageName": "com.google.android.settings.intelligence",
-      "duration": "11s",
-      "appName": "intelligence",
-      "date": "1736640000000",
-      "id": "696a"
-    },
-    {
-      "packageName": "com.google.android.apps.nexuslauncher",
-      "duration": "3728s",
-      "appName": "nexuslauncher",
-      "date": "1736726400000",
-      "id": "80c5"
-    },
-    {
-      "packageName": "com.android.settings",
-      "duration": "1s",
-      "appName": "settings",
-      "date": "1736726400000",
-      "id": "f3d6"
-    },
-    {
-      "packageName": "com.google.android.youtube",
-      "duration": "20s",
-      "appName": "youtube",
-      "date": "1736726400000",
-      "id": "e73d"
-    },
-    {
-      "packageName": "com.example.detoxapp",
-      "duration": "2242s",
-      "appName": "detoxapp",
-      "date": "1736726400000",
-      "id": "32ba"
+      "date": "1737158400000",
+      "id": "0abb"
     }
   ],
   "challengeStatus": [

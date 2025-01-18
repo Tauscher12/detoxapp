@@ -41,6 +41,11 @@ class _UsageStatsScreenState extends State<UsageStatsScreen> {
                   itemCount: usageStats.length,
                   itemBuilder: (context, index) {
                     final stat = usageStats[index];
+                    final duration = stat.duration;
+                    final hours = (duration / 3600).floor();
+                    final minutes = ((duration % 3600) / 60).floor();
+                    final seconds = (duration % 60).floor();
+          
                     return Card(
                       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: FutureBuilder<Widget>(
@@ -50,13 +55,13 @@ class _UsageStatsScreenState extends State<UsageStatsScreen> {
                             return ListTile(
                               leading: CircularProgressIndicator(),
                               title: Text(stat.appName),
-                              subtitle: Text('Nutzungsdauer: ${stat.duration}'),
+                              subtitle: Text('Nutzungsdauer: $hours h $minutes m $seconds s'),
                             );
                           }
                           return ListTile(
                             leading: iconSnapshot.data,
                             title: Text(stat.appName),
-                            subtitle: Text('Nutzungsdauer: ${stat.duration}'),
+                              subtitle: Text('Nutzungsdauer: $hours h $minutes m $seconds s'),
                           );
                         },
                       ),

@@ -26,7 +26,7 @@ class AppUsageProvider with ChangeNotifier {
         return [
           AppUsage(
             packageName: 'Fehler',
-            duration: "0",
+            duration: 0,
             appName: 'Fehler',
             date: DateTime.now(),
           ),
@@ -38,7 +38,7 @@ class AppUsageProvider with ChangeNotifier {
           final details = line.split(';');
           final packageName = details[0].replaceFirst('App: ', '').trim();
           final duration =
-              details[1].replaceFirst('Nutzungsdauer: ', '').trim();
+              double.parse(details[1].replaceFirst('Nutzungsdauer: ', '').trim().replaceAll("s", ""));
           final appName =
               details[0].replaceFirst('App Name: ', '').trim().split(".").last;
           final date = details[2].replaceFirst('Date: ', '').trim();
@@ -74,7 +74,7 @@ class AppUsageProvider with ChangeNotifier {
       return [
         AppUsage(
           packageName: 'Fehler',
-          duration: "0",
+          duration: 0,
           appName: 'Fehler',
           date: DateTime.now(),
         ),
