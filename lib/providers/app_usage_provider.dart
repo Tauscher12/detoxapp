@@ -36,8 +36,9 @@ class AppUsageProvider with ChangeNotifier {
         final appUsageList =
             lines.where((line) => line.trim().isNotEmpty).map((line) {
           final details = line.split(';');
-          details.removeWhere((element) => element.contains("com.google.android.apps.nexuslauncher"));
+         
           final packageName = details[0].replaceFirst('App: ', '').trim();
+          print(details);
           final duration =
               double.parse(details[1].replaceFirst('Nutzungsdauer: ', '').trim().replaceAll("s", ""));
           final appName =
@@ -50,7 +51,7 @@ class AppUsageProvider with ChangeNotifier {
             date: DateTime.fromMillisecondsSinceEpoch(int.parse(date)),
           );
         }).toList();
-
+        appUsageList.removeWhere((a)=>a.packageName=="com.google.android.apps.nexuslauncher");
         // Update local data
         for (var newUsage in appUsageList) {
           final existingUsageIndex = _appUsageList.indexWhere((usage) =>
@@ -67,7 +68,7 @@ class AppUsageProvider with ChangeNotifier {
             _appUsageList.add(newUsage);
           }
         }
-
+   
         notifyListeners();
         return _appUsageList;
       }
